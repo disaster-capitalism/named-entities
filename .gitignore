@@ -2,7 +2,6 @@
 venv/
 .git/
 .ipynb_checkpoints/
-data.json
-studies_on_water_scraped.json
 *.csv
+*.json
 __pycache__/
