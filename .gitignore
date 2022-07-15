@@ -1,0 +1,8 @@
+.DS_Store
+venv/
+.git/
+.ipynb_checkpoints/
+*.csv
+*.json
+__pycache__/
+*.zip
