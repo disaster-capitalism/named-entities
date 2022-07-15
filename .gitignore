@@ -5,3 +5,4 @@ venv/
 *.csv
 *.json
 __pycache__/
+*.zip
