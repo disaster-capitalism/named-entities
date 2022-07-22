@@ -25,27 +25,48 @@ The final network consisted of roughly 1900 unique named entities and around 500
     ├── preprocess_ngram_named_entities.ipynb 
     └── word2vec-embeddings.ipynb 
     
-**cluster-plots/** 
+**cluster-plots/**
+
 t-SNE dimensionality reduction plots (clustering.ipynb)
+
 **clustering-data/**
+
 data generated from Kmeans / spectral clustering (clustering.ipynb)
+
 **data-files/**
+
 all other input and output data files relevant for the NER analysis, including the named entities identified and the specific documents they occur in.
+
 **models/**
+
 gensim word2vec embedding models (word2vec-embeddings.ipynb)
+
 **srl/oecd_semantic_role_labelling.ipynb**
+
 semantic role labelling notebook using allennlp BILSTM model
+
 **srl/oecd-srl-cleaning-and-analysis.ipynb**
+
 cleans the results of SRL (see description above)
+
 **ner_flair.ipynb**
+
 performs named entity recognition for ORGs, PERSONs, GPEs, LOCs, FACs and NORPs
+
 **clustering.ipynb**
+
 t-SNE 2D and 3D plots of word vectors, Kmeans and spectral clustering
+
 **explore_ner_results.ipynb**
+
 just to manually analyse and verify the overall quality of the named entities identified
+
 **preprocess_ngram_named_entities.ipynb**
+
 some named entities span more than one word or token e.g. "south africa". this notebook processes the OECD corpus to convert these named entities with SINGLE tokens so that we can compute word2vec embeddings for each named entity. so "south africa" becomes "south_africa" in the processed corpus.
+
 **word2vec-embeddings.ipynb**
+
 computes word2vec embeddings for the OECD corpus. contextualised / sentence embeddings are not chosen because it makes it easier to cluster and visualise named entities and their relationships when we have a unique vector per token in the corpus.
 
 ### Workflow diagram
