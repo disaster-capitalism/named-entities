@@ -17,6 +17,7 @@ The final network consisted of roughly 1900 unique named entities and around 500
     ├── clustering-data/        
     ├── data-files/             
     ├── models/                 
+    ├── srl/mhs.py
     ├── srl/oecd_semantic_role_labelling.ipynb
     ├── srl/oecd-srl-cleaning-and-analysis.ipynb
     ├── ner_flair.ipynb        
@@ -40,6 +41,10 @@ all other input and output data files relevant for the NER analysis, including t
 **models/**
 
 gensim word2vec embedding models (word2vec-embeddings.ipynb)
+
+**srl/mhs.py**
+
+library to calculate all [minimal hitting sets](https://archive.lib.msu.edu/crcmath/math/math/h/h297.htm) of a collection of lists or sets. this is used by the SRL cleaning notebook to decompose a (S,V,O) tuple where S and / or O are complex phrases with multiple named entities in them (not just one), into multiple tuples where S and O are simple (they each represent only one named entity).
 
 **srl/oecd_semantic_role_labelling.ipynb**
 
