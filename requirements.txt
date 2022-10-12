@@ -1,0 +1,10 @@
+plotly
+gensim
+pandas
+scipy
+jupyterlab
+matplotlib
+matplotlib-inline
+scikit-learn
+thefuzz
+cufflinks
