@@ -10,3 +10,5 @@ thefuzz
 cufflinks
 text-preprocessing
 nltk
+flair
+text_preprocessing

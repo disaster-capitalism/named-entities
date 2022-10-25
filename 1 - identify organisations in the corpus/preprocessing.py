@@ -5,23 +5,24 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 import re
 import pandas as pd
-import csv
 import os.path
 import json
 import string
+from pathlib import Path
 
-datafr = pd.read_csv('../data-files/master-ner-results.csv')
+path = Path(os.getcwd())
+data_dir = os.path.join(path.parents[0], "data-files")
 
 # get data (full body texts of documents)
-f = open('../data-files/data.json')
-data = json.load(f)
+with open(os.path.join(data_dir, "data.json")) as f:
+    data = json.load(f)
 
 # get data (the structured data which Malte processed into lines with metadata)
-sf = open('../data-files/studies_on_water_scraped.json')
-raw_data = json.load(sf)
+with open(os.path.join(data_dir, "studies_on_water_scraped.json")) as sf:
+    raw_data = json.load(sf)
 
-nf = open('../data-files/ngram_replacements.json')
-ngram_replacements = json.load(nf)
+with open(os.path.join(data_dir, "ngram_replacements.json")) as nf:
+    ngram_replacements = json.load(nf)
 
 # define function to lookup correct ID for document in studies_on_water_scraped.json
 # before this, I was using the INDEX of the document in the JSON array of this file as its ID.
@@ -50,6 +51,10 @@ def preprocess_ner(corpus, stopwords):
     preprocess_functions = [remove_whitespace, remove_url, remove_ssn, remove_email, remove_phone_number, remove_number, remove_itemized_bullet_and_numbering]
     preprocessed_text = preprocess_text(corpus, preprocess_functions)
     
+    # these are anomalous text or headings which appear at the start of each document. here we remove them. 
+    preprocessed_text = preprocessed_text.replace("format title author subject keywords creator producer creationDate modDate trapped encryption id Preface", "")
+    preprocessed_text = preprocessed_text.replace("format title author subject keywords creator producer creationDate modDate trapped encryption id", "")
+
     # remove extra whitespace (not detected by text-preprocessing library)
     preprocessed_text = re.sub(' +', ' ', preprocessed_text)
     
@@ -125,10 +130,10 @@ def preprocess_ner(corpus, stopwords):
 
 def replace_ngrams_with_unigrams_named_entities():
     global data
-    global datafr
     global entity_dict
     global ngram_replacements
     
+    datafr = pd.read_csv(os.path.join(data_dir, "master-ner-results.csv"))
     # copy data
     new_data = {}
     keys =[]
@@ -176,7 +181,7 @@ def replace_ngrams_with_unigrams_named_entities():
             
     # print('entity_dict size: ', len(entity_dict))
 
-    with open('../data-files/entity_dict.json', 'w') as fp:
+    with open(os.path.join(data_dir, "entity_dict.json"), 'w') as fp:
         json.dump(entity_dict, fp)
 
     # Declare a list that is to be converted into a column
@@ -200,7 +205,7 @@ def replace_ngrams_with_unigrams_named_entities():
                           
     datafr['entity_as_single_token'] = single_tokens
 
-    datafr.to_csv('../data-files/master-ner-results-singletokens.csv', index=False)
+    datafr.to_csv(os.path.join(data_dir, "master-ner-results-singletokens.csv"), index=False)
 
     return new_data
     
@@ -213,7 +218,7 @@ def replace_ngrams_with_unigrams_curated_phrases():
     for key in data:
         processed_data[key] = replace_all(data[key], ngram_replacements)       
     
-    with open('../data-files/processed_ngram_ner_data.json', 'w') as fp:
+    with open(os.path.join(data_dir, "processed_ngram_ner_data.json"), 'w') as fp:
         json.dump(processed_data, fp)
         
     return processed_data
