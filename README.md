@@ -100,12 +100,22 @@ flowchart TB
     subgraph "1. identify organisations"
     begin -- studies_on_water_scraped.json ---> gather_texts.ipynb -- data.json, studies_on_water_scraped.json --> ner_flair.ipynb -- master-ner-results.csv ---> explore_ner_results.ipynb
     end
+```
+
+```mermaid
+flowchart TB
+    subgraph "2. cluster and link organisations to STM topics"
+    begin --> word2vec-embeddings.ipynb -- gensim-word2vec-model.model, master-ner-results-singletokens.csv, oecd-stm-themes.json, stm_final_topic_labels.csv ---> clustering.ipynb -- kmeans-network-edges-only.csv ---> Gephi
+    end
+```
+
+```mermaid
+flowchart TB
     subgraph "3 - generate a network of organisations using SRL"
 begin -- processed_ngram_ner_data.json, ngram_replacements.json ---> oecd_semantic_role_labelling.ipynb -- srl_predictions_big.pkl, master-ner-results-singletokens.csv, replace_stopwords_orgs.txt ---> oecd-srl-cleaning-and-analysis.ipynb -- full_actors_data.csv ---> Gephi
     end
-    subgraph "2. cluster and link organisations to STM topics"
-    word2vec-embeddings.ipynb -- gensim-word2vec-model.model, master-ner-results-singletokens.csv, oecd-stm-themes.json, stm_final_topic_labels.csv ---> clustering.ipynb -- kmeans-network-edges-only.csv ---> Gephi
-    end
-
 ```
+
+
+
 <!-- <img src="images/workflow-sequence.png" alt="sequence" width="500"/> -->
