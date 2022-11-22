@@ -212,7 +212,7 @@ def replace_ngrams_with_unigrams_named_entities(source_file, ne_results_file, ab
 
             named_entity_tokens = remove_punctuation_and_lowercase(item).split()
                                                 
-            if (len(named_entity_tokens) > 1):
+            if (len(named_entity_tokens) > 1 and (item.strip() in entity_dict)):
                 single_tokens.append(entity_dict[item.strip()])
             elif (len(named_entity_tokens) == 1):
                 single_tokens.append(remove_punctuation_and_lowercase(item))
