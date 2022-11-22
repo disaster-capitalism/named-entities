@@ -8,6 +8,6 @@ data-files/*
 !data-files/cluster-plots/
 !data-files/clustering-data/
 !data-files/ngram_replacements.json
+!data-files/abbr.json
 !data-files/replace_stopwords_orgs.txt
-!data-files/oecd-stm-themes.json.json
 *.model
